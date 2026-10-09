@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Horario 8A — Portal Escolar & Tareas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0B1120;
+      background-image: radial-gradient(ellipse 80% 50% at 50% -15%, rgba(79, 70, 229, 0.22), transparent);
+      color: #F1F5F9;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-variant-numeric: tabular-nums;
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+    td[data-materia="DIRECCION DE CURSO"] { background-color: rgba(255, 153, 153, 0.22); color: #fecdd3; }
+    td[data-materia="PROGRAMACION"] { background-color: rgba(153, 204, 255, 0.25); color: #bae6fd; }
+    td[data-materia="INGLES"] { background-color: rgba(153, 255, 153, 0.22); color: #a7f3d0; }
+    td[data-materia="INTERIORIDAD"] { background-color: rgba(255, 204, 153, 0.25); color: #fde68a; }
+    td[data-materia="ARTES PLASTICAS"] { background-color: rgba(204, 153, 255, 0.25); color: #e9d5ff; }
+    td[data-materia="DANZAS"] { background-color: rgba(255, 153, 255, 0.25); color: #f5d0fe; }
+    td[data-materia="MATEMATICAS"] { background-color: rgba(255, 255, 153, 0.25); color: #fef08a; }
+    td[data-materia="PROYECTO INTEGRADOR"] { background-color: rgba(153, 255, 255, 0.22); color: #a5f3fc; }
+    td[data-materia="CIENCIAS SOCIALES"] { background-color: rgba(255, 204, 255, 0.25); color: #fbcfe8; }
+    td[data-materia="LENGUA CASTELLANA"] { background-color: rgba(153, 204, 255, 0.25); color: #bfdbfe; }
+    td[data-materia="CIENCIAS NATURALES"] { background-color: rgba(204, 255, 153, 0.25); color: #d9f99d; }
+    td[data-materia="EDUCACION FISICA"] { background-color: rgba(255, 204, 153, 0.25); color: #fed7aa; }
+    td[data-materia="ALMUERZO"] { background-color: rgba(30, 41, 59, 0.75); color: #94a3b8; }
+    td[data-materia="SOCIOEMOCIONAL"] { background-color: rgba(204, 255, 204, 0.22); color: #99f6e4; }
+    td[data-materia="MUSICA"] { background-color: rgba(255, 204, 204, 0.25); color: #fecaca; }
+    td[data-materia="TALENTOS"] { background-color: rgba(204, 204, 255, 0.25); color: #c7d2fe; }
+    td[data-materia="PROCESOS FISICO QUIMICOS"] { background-color: rgba(255, 179, 128, 0.25); color: #fed7aa; }
+    td[data-materia]:hover { filter: brightness(1.2); }
+    .celda-resaltada { box-shadow: inset 0 0 0 2px #fbbf24; font-weight: 700 !important; }
+    .celda-atenuada { opacity: 0.25; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <header class="sticky top-0 z-30 bg-[#0F172A]/90 backdrop-blur-md border-b border-slate-800 px-4 sm:px-8 py-3.5">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-8">
+      <a href="#horario-section" class="text-lg font-bold tracking-tight text-white whitespace-nowrap shrink-0">Horario 8A</a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+        <a href="#horario-section" class="hover:text-white transition-colors whitespace-nowrap shrink-0">Horario Semanal</a>
+        <a href="#tareas-section" class="hover:text-white transition-colors whitespace-nowrap shrink-0">Lista de Tareas</a>
+        <a href="#agregar-tarea" class="hover:text-white transition-colors whitespace-nowrap shrink-0">Nueva Tarea</a>
+      </nav>
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="#tareas-section" class="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-500 transition-colors whitespace-nowrap shrink-0">Ver Tareas</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-8 py-6 sm:py-8 space-y-8">
+    <section class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-slate-800">
+      <div class="space-y-2 max-w-2xl">
+        <p class="text-xs font-medium text-indigo-400">Portal Académico · Curso 8A · Lunes a Viernes (7:00 – 15:00)</p>
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">Horario de Clases y Control de Tareas</h1>
+        <p class="text-sm text-slate-300">Selecciona una materia en la lista o toca cualquier bloque del horario para filtrar sus horas y sus tareas.</p>
+      </div>
+      <div class="grid grid-cols-3 gap-3 sm:gap-4 shrink-0">
+        <div class="bg-[#131D31] border border-slate-800 rounded-xl px-4 py-3">
+          <div class="text-xs text-slate-400">Tareas Totales</div>
+          <div id="kpi-total" class="text-xl sm:text-2xl font-bold text-white font-mono tabular-nums mt-0.5">0</div>
+        </div>
+        <div class="bg-[#131D31] border border-slate-800 rounded-xl px-4 py-3">
+          <div class="text-xs text-amber-400 font-medium">Pendientes</div>
+          <div id="kpi-pendientes" class="text-xl sm:text-2xl font-bold text-amber-300 font-mono tabular-nums mt-0.5">0</div>
+        </div>
+        <div class="bg-[#131D31] border border-slate-800 rounded-xl px-4 py-3">
+          <div class="text-xs text-emerald-400 font-medium">Completadas</div>
+          <div id="kpi-completadas" class="text-xl sm:text-2xl font-bold text-emerald-300 font-mono tabular-nums mt-0.5">0</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="horario-section" class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#131D31] border border-slate-800 rounded-xl p-4">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3 flex-1">
+          <label for="materia" class="text-xs font-semibold text-slate-200 whitespace-nowrap shrink-0">Selecciona materia:</label>
+          <div class="flex items-center gap-2 flex-1 max-w-md">
+            <select id="materia" onchange="filtrar()" class="w-full px-3 py-2 text-sm bg-[#0B1120] border border-slate-700 rounded-lg text-slate-100 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="TODAS">TODAS LAS MATERIAS</option>
+              <option>DIRECCION DE CURSO</option>
+              <option>PROGRAMACION</option>
+              <option>INGLES</option>
+              <option>INTERIORIDAD</option>
+              <option>ARTES PLASTICAS</option>
+              <option>DANZAS</option>
+              <option>MATEMATICAS</option>
+              <option>PROYECTO INTEGRADOR</option>
+              <option>CIENCIAS SOCIALES</option>
+              <option>LENGUA CASTELLANA</option>
+              <option>CIENCIAS NATURALES</option>
+              <option>EDUCACION FISICA</option>
+              <option>ALMUERZO</option>
+              <option>SOCIOEMOCIONAL</option>
+              <option>MUSICA</option>
+              <option>TALENTOS</option>
+              <option>PROCESOS FISICO QUIMICOS</option>
+            </select>
+            <button id="btn-limpiar-filtro" onclick="limpiarFiltro()" class="hidden px-3 py-2 text-xs font-medium text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg whitespace-nowrap shrink-0 cursor-pointer">Ver todas</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-[#131D31] border border-slate-800 rounded-xl overflow-hidden">
+        <div class="overflow-x-auto">
+          <table id="horario" class="w-full border-collapse text-left">
+            <thead>
+              <tr class="bg-[#0F172A] border-b border-slate-800 text-xs font-bold text-slate-200">
+                <th class="py-3 px-3.5 w-28 whitespace-nowrap">Hora</th>
+                <th class="py-3 px-3.5 border-l border-slate-800 whitespace-nowrap">Lunes</th>
+                <th class="py-3 px-3.5 border-l border-slate-800 whitespace-nowrap">Martes</th>
+                <th class="py-3 px-3.5 border-l border-slate-800 whitespace-nowrap">Miércoles</th>
+                <th class="py-3 px-3.5 border-l border-slate-800 whitespace-nowrap">Jueves</th>
+                <th class="py-3 px-3.5 border-l border-slate-800 whitespace-nowrap">Viernes</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/90 text-xs">
+              <tr><td class="py-3 px-3.5 font-mono font-semibold text-slate-300 bg-[#0F172A]/80 whitespace-nowrap">7:00-7:30</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="DIRECCION DE CURSO">DIRECCION DE CURSO</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="DIRECCION DE CURSO">DIRECCION DE CURSO</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="DIRECCION DE CURSO">DIRECCION DE CURSO</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="DIRECCION DE CURSO">DIRECCION DE CURSO</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="PROCESOS FISICO QUIMICOS">PROCESOS FISICO QUIMICOS</td></tr>
+              <tr><td class="py-3 px-3.5 font-mono font-semibold text-slate-300 bg-[#0F172A]/80 whitespace-nowrap">7:30-8:15</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="PROGRAMACION">PROGRAMACION</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="INGLES">INGLES</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="INTERIORIDAD">INTERIORIDAD</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="ARTES PLASTICAS">ARTES PLASTICAS</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="INGLES">INGLES</td></tr>
+              <tr><td class="py-3 px-3.5 font-mono font-semibold text-slate-300 bg-[#0F172A]/80 whitespace-nowrap">8:15-9:00</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="PROGRAMACION">PROGRAMACION</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="DANZAS">DANZAS</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="MATEMATICAS">MATEMATICAS</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="ARTES PLASTICAS">ARTES PLASTICAS</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="INGLES">INGLES</td></tr>
+              <tr><td class="py-3 px-3.5 font-mono font-semibold text-slate-300 bg-[#0F172A]/80 whitespace-nowrap">9:00-9:45</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="PROYECTO INTEGRADOR">PROYECTO INTEGRADOR</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="DANZAS">DANZAS</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="MATEMATICAS">MATEMATICAS</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="CIENCIAS SOCIALES">CIENCIAS SOCIALES</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="LENGUA CASTELLANA">LENGUA CASTELLANA</td></tr>
+              <tr><td class="py-3 px-3.5 font-mono font-semibold text-slate-300 bg-[#0F172A]/80 whitespace-nowrap">9:45-10:25</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="ALMUERZO">ALMUERZO</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="ALMUERZO">ALMUERZO</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="ALMUERZO">ALMUERZO</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="ALMUERZO">ALMUERZO</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="ALMUERZO">ALMUERZO</td></tr>
+              <tr><td class="py-3 px-3.5 font-mono font-semibold text-slate-300 bg-[#0F172A]/80 whitespace-nowrap">10:25-11:10</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="INTERIORIDAD">INTERIORIDAD</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="LENGUA CASTELLANA">LENGUA CASTELLANA</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="CIENCIAS NATURALES">CIENCIAS NATURALES</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="CIENCIAS NATURALES">CIENCIAS NATURALES</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="INTERIORIDAD">INTERIORIDAD</td></tr>
+              <tr><td class="py-3 px-3.5 font-mono font-semibold text-slate-300 bg-[#0F172A]/80 whitespace-nowrap">11:10-11:55</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="MATEMATICAS">MATEMATICAS</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="CIENCIAS NATURALES">CIENCIAS NATURALES</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="EDUCACION FISICA">EDUCACION FISICA</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="INGLES">INGLES</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="CIENCIAS SOCIALES">CIENCIAS SOCIALES</td></tr>
+              <tr><td class="py-3 px-3.5 font-mono font-semibold text-slate-300 bg-[#0F172A]/80 whitespace-nowrap">11:55-12:40</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="MATEMATICAS">MATEMATICAS</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="CIENCIAS NATURALES">CIENCIAS NATURALES</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="EDUCACION FISICA">EDUCACION FISICA</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="MATEMATICAS">MATEMATICAS</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="CIENCIAS SOCIALES">CIENCIAS SOCIALES</td></tr>
+              <tr><td class="py-3 px-3.5 font-mono font-semibold text-slate-300 bg-[#0F172A]/80 whitespace-nowrap">12:40-13:30</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="ALMUERZO">ALMUERZO</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="ALMUERZO">ALMUERZO</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="ALMUERZO">ALMUERZO</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="ALMUERZO">ALMUERZO</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="ALMUERZO">ALMUERZO</td></tr>
+              <tr><td class="py-3 px-3.5 font-mono font-semibold text-slate-300 bg-[#0F172A]/80 whitespace-nowrap">13:30-14:15</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="SOCIOEMOCIONAL">SOCIOEMOCIONAL</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="MUSICA">MUSICA</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="CIENCIAS SOCIALES">CIENCIAS SOCIALES</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="LENGUA CASTELLANA">LENGUA CASTELLANA</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="TALENTOS">TALENTOS</td></tr>
+              <tr><td class="py-3 px-3.5 font-mono font-semibold text-slate-300 bg-[#0F172A]/80 whitespace-nowrap">14:15-15:00</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="INGLES">INGLES</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="MUSICA">MUSICA</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="INGLES">INGLES</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="LENGUA CASTELLANA">LENGUA CASTELLANA</td><td class="py-3 px-3 border-l border-slate-800/80 cursor-pointer font-medium" data-materia="TALENTOS">TALENTOS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="tareas-section" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start pt-2">
+      <div id="agregar-tarea" class="lg:col-span-4 bg-[#131D31] border border-slate-800 rounded-xl p-5 space-y-4">
+        <div class="border-b border-slate-800 pb-3">
+          <h2 class="text-base font-bold text-white">Agregar Tarea</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Se guarda directamente en tu Google Sheets actual</p>
+        </div>
+        <form onsubmit="agregarTarea(event)" class="space-y-4">
+          <div class="space-y-1.5">
+            <label for="materiaTarea" class="block text-xs font-semibold text-slate-300">Materia</label>
+            <select id="materiaTarea" required class="w-full px-3 py-2 text-sm bg-[#0B1120] border border-slate-700 rounded-lg text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="">Selecciona materia</option>
+              <option>DIRECCION DE CURSO</option>
+              <option>PROGRAMACION</option>
+              <option>INGLES</option>
+              <option>INTERIORIDAD</option>
+              <option>ARTES PLASTICAS</option>
+              <option>DANZAS</option>
+              <option>MATEMATICAS</option>
+              <option>PROYECTO INTEGRADOR</option>
+              <option>CIENCIAS SOCIALES</option>
+              <option>LENGUA CASTELLANA</option>
+              <option>CIENCIAS NATURALES</option>
+              <option>EDUCACION FISICA</option>
+              <option>ALMUERZO</option>
+              <option>SOCIOEMOCIONAL</option>
+              <option>MUSICA</option>
+              <option>TALENTOS</option>
+              <option>PROCESOS FISICO QUIMICOS</option>
+            </select>
+          </div>
+          <div class="space-y-1.5">
+            <label for="textoTarea" class="block text-xs font-semibold text-slate-300">Descripción de la tarea</label>
+            <input type="text" id="textoTarea" placeholder="Escribe la tarea" required class="w-full px-3 py-2 text-sm bg-[#0B1120] border border-slate-700 rounded-lg text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          </div>
+          <div class="space-y-1.5">
+            <label for="fechaTarea" class="block text-xs font-semibold text-slate-300">Fecha de entrega</label>
+            <input type="date" id="fechaTarea" required class="w-full px-3 py-2 text-sm bg-[#0B1120] border border-slate-700 rounded-lg text-slate-100 font-mono focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+          </div>
+          <button type="submit" id="btnSubmitTarea" class="w-full py-2.5 px-4 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors cursor-pointer">Agregar tarea</button>
+        </form>
+      </div>
+
+      <div class="lg:col-span-8 bg-[#131D31] border border-slate-800 rounded-xl p-5 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <h2 class="text-base font-bold text-white">Lista de Tareas</h2>
+            <p id="contadorTareas" class="text-xs text-slate-400 mt-0.5 font-mono tabular-nums">Tareas: 0 · Pendientes: 0 · Completadas: 0</p>
+          </div>
+          <button onclick="cargarTareas()" class="px-3 py-1.5 text-xs font-medium text-slate-200 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors cursor-pointer self-start sm:self-auto">Actualizar lista</button>
+        </div>
+        <ul id="tareas" class="divide-y divide-slate-800 border border-slate-800 rounded-xl overflow-hidden max-h-[460px] overflow-y-auto bg-[#0B1120]/50">
+          <li class="p-6 text-center text-xs text-slate-400">Cargando tareas desde Google Sheets...</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwZDzbgcHSX0WFK4UO0QzmKzt1k5An0jBIKZ7SDV8OO0chkPfcQAj2CnFjQS3aUOLvvaA/exec";
+    let tareas = [];
+
+    document.querySelectorAll("#horario td[data-materia]").forEach(td => {
+      td.addEventListener("click", () => {
+        const select = document.getElementById("materia");
+        const mat = td.getAttribute("data-materia");
+        select.value = (select.value === mat) ? "TODAS" : mat;
+        filtrar();
+      });
+    });
+
+    async function cargarTareas() {
+      const filtro = document.getElementById("materia").value;
+      const lista = document.getElementById("tareas");
+      try {
+        const resp = await fetch(WEB_APP_URL);
+        tareas = await resp.json();
+        renderizarTareas(filtro);
+      } catch (err) {
+        lista.innerHTML = '<li class="p-6 text-center text-xs text-red-400">Error al conectar con Google Sheets. Intenta actualizar.</li>';
+      }
+    }
+
+    function renderizarTareas(filtro) {
+      const lista = document.getElementById("tareas");
+      lista.innerHTML = "";
+      let total = 0, pendientes = 0, completadas = 0, mostradas = 0;
+
+      tareas.forEach((t, i) => {
+        total++;
+        const esCompletada = t.estado == "completada";
+        if (esCompletada) { completadas++; } else { pendientes++; }
+
+        if (filtro == "TODAS" || t.materia == filtro) {
+          mostradas++;
+          const li = document.createElement("li");
+          li.className = "p-3.5 flex items-center justify-between gap-4 " + (esCompletada ? "bg-[#0B1120]/80 text-slate-500" : "bg-[#131D31]/60 hover:bg-slate-800/60");
+          const f = t.fecha ? new Date(t.fecha).toLocaleDateString("es-ES") : "Sin fecha";
+          const infoDiv = document.createElement("div");
+          infoDiv.className = "min-w-0 flex-1 space-y-1";
+          infoDiv.innerHTML = '<div class="flex flex-wrap items-center gap-1.5 text-xs text-slate-400">' +
+            '<span class="font-semibold text-indigo-300">' + (t.materia || "") + '</span><span>·</span>' +
+            '<span class="font-mono tabular-nums text-slate-300">' + f + '</span><span>·</span>' +
+            '<span class="' + (esCompletada ? "text-emerald-400" : "text-amber-400") + ' font-medium">' + (esCompletada ? "Completada" : "Pendiente") + '</span></div>' +
+            '<p class="text-sm font-medium break-words ' + (esCompletada ? "line-through text-slate-500" : "text-slate-100") + '">' + (t.texto || "") + '</p>';
+
+          const check = document.createElement("input");
+          check.type = "checkbox";
+          check.checked = esCompletada;
+          check.className = "w-5 h-5 accent-indigo-500 rounded cursor-pointer shrink-0";
+          check.onchange = async () => {
+            await fetch(WEB_APP_URL, {
+              method: "POST",
+              body: JSON.stringify({ accion: "actualizar", index: i, estado: check.checked ? "completada" : "pendiente" })
+            });
+            cargarTareas();
+          };
+          li.appendChild(infoDiv);
+          li.appendChild(check);
+          lista.appendChild(li);
+        }
+      });
+
+      if (mostradas === 0) {
+        lista.innerHTML = '<li class="p-8 text-center text-xs text-slate-400">No hay tareas para mostrar en este filtro.</li>';
+      }
+      document.getElementById("contadorTareas").innerText = "Tareas: " + total + " · Pendientes: " + pendientes + " · Completadas: " + completadas;
+      document.getElementById("kpi-total").innerText = total;
+      document.getElementById("kpi-pendientes").innerText = pendientes;
+      document.getElementById("kpi-completadas").innerText = completadas;
+    }
+
+    function filtrar() {
+      const m = document.getElementById("materia").value;
+      const btnLimpiar = document.getElementById("btn-limpiar-filtro");
+      if (m === "TODAS") { btnLimpiar.classList.add("hidden"); } else { btnLimpiar.classList.remove("hidden"); }
+      document.querySelectorAll("#horario td[data-materia]").forEach(c => {
+        c.classList.remove("celda-resaltada", "celda-atenuada");
+        if (m !== "TODAS") {
+          if (c.dataset.materia === m) { c.classList.add("celda-resaltada"); } else { c.classList.add("celda-atenuada"); }
+        }
+      });
+      renderizarTareas(m);
+    }
+
+    function limpiarFiltro() {
+      document.getElementById("materia").value = "TODAS";
+      filtrar();
+    }
+
+    async function agregarTarea(e) {
+      e.preventDefault();
+      const btn = document.getElementById("btnSubmitTarea");
+      const materia = document.getElementById("materiaTarea").value;
+      const texto = document.getElementById("textoTarea").value;
+      const fecha = document.getElementById("fechaTarea").value;
+      btn.disabled = true;
+      btn.innerText = "Guardando...";
+      await fetch(WEB_APP_URL, {
+        method: "POST",
+        body: JSON.stringify({ accion: "agregar", tarea: { materia, texto, fecha, estado: "pendiente" } })
+      });
+      e.target.reset();
+      btn.disabled = false;
+      btn.innerText = "Agregar tarea";
+      cargarTareas();
+    }
+
+    cargarTareas();
+  </script>
+</body>
+</html>
